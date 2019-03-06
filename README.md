@@ -10,5 +10,9 @@ Base docker images for statistical modeling
 
 R-packages:
 - forecast
+- xgboost
+- randomForest
+- elasticnet
 - mets
 - RJDBC
+

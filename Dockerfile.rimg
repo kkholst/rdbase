@@ -42,8 +42,9 @@ RUN cd ${MLPACK} && mkdir build && cd build && \
      cmake -D BUILD_TESTS=OFF -D BUILD_CLI_EXECUTABLES=OFF -D DEBUG=OFF -D PROFILE=OFF ../ && \
      make && make install && make clean
 ENV $LD_LIBRARY_PATH:LD_LIBRARY_PATH /usr/local/lib
- 
-RUN R -q -e "install.packages(c('RJDBC', 'mets', 'DEoptim', 'forecast'), repos = 'https://cloud.r-project.org/')"
+
+RUN R -q -e "install.packages(c('RJDBC', 'RSQLite', 'data.table', 'mets', 'DEoptim', 'forecast', 'zoo', 'xts', 'doParallel'), repos = 'https://cloud.r-project.org/')"
+RUN R -q -e "install.packages(c('caret','e1071','mboost','gbm','randomForest','quantregForest','elasticnet','xgboost','ISOweek','quantreg','lubridate'), repos = 'https://cloud.r-project.org/')"
 
 # Clean when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
