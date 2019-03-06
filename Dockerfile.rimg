@@ -1,0 +1,62 @@
+FROM phusion/baseimage:0.11
+MAINTAINER Klaus Holst <klaus.holst@maersk.com>
+
+# Use baseimage-docker's init system.
+CMD ["/sbin/my_init"]
+
+RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
+&& locale-gen en_US.utf8 \
+&& /usr/sbin/update-locale LANG=en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV R_BASE_VERSION 3.5.2
+
+ARG DEBIAN_FRONTEND=noninteractive
+RUN APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 51716619E084DAB9 > /dev/null 2>&1
+RUN add-apt-repository 'deb [arch=amd64,i386] https://cran.rstudio.com/bin/linux/ubuntu bionic-cran35/'
+RUN apt-get install -y --no-install-recommends \
+	build-essential autoconf cmake binutils-dev git \
+	libboost-all-dev \
+	default-jdk \
+	libcurl4-openssl-dev libssl-dev libssh2-1-dev libxml2-dev curl wget
+RUN apt-get install -y --no-install-recommends python3-pip
+RUN apt-get install -y --no-install-recommends \
+	r-base=${R_BASE_VERSION}* \
+        r-base-dev=${R_BASE_VERSION}* \
+        r-recommended=${R_BASE_VERSION}* \
+	littler \
+        r-cran-littler
+
+# R development packages
+RUN R -q -e "install.packages(c('devtools', 'covr', 'roxygen2', 'testthat'), repos = 'https://cloud.r-project.org/')"
+
+ENV ARMA_BRANCH=9.200.x
+ENV MLPACK=mlpack-3.0.4
+
+RUN git clone http://gitlab.com/conradsnicta/armadillo-code -b ${ARMA_BRANCH} --depth=1 armadillo
+RUN cd armadillo; cmake . && make && make install
+RUN rm -Rf armadillo
+
+RUN wget http://www.mlpack.org/files/${MLPACK}.tar.gz && tar xzf ${MLPACK}.tar.gz && rm ${MLPACK}.tar.gz
+RUN cd ${MLPACK} && mkdir build && cd build && \
+     cmake -D BUILD_TESTS=OFF -D BUILD_CLI_EXECUTABLES=OFF -D DEBUG=OFF -D PROFILE=OFF ../ && \
+     make && make install && make clean
+ENV $LD_LIBRARY_PATH:LD_LIBRARY_PATH /usr/local/lib
+
+ 
+RUN R -q -e "install.packages(c('RJDBC', 'mets', 'DEoptim', 'forecast'), repos = 'https://cloud.r-project.org/')"
+
+
+VOLUME /data
+WORKDIR /data
+RUN useradd -u 1000 -g sudo -ms /bin/bash dev
+RUN chown dev /data
+USER dev
+
+RUN echo ".libPaths('/home/dev/R/library/')\noptions(repos = 'https://cloud.r-project.org/')\n" \
+    > /home/dev/.Rprofile
+
+# Clean when done.
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+CMD R --no-save
