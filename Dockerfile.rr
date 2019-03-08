@@ -8,7 +8,7 @@ RUN R -q -e "install.packages(c( \
 'codetools', 'foreign', \
 'boot', 'cluster', 'rpart', 'KernSmooth', 'MASS', 'Matrix', 'nlme', 'lme4', 'mgcv', 'survival',  \
 'caret', 'e1071', 'mboost', 'gbm', 'xgboost', \
-'randomForest', 'quantregForest', 'elasticnet', 'quantreg',\
+'randomForest', 'quantregForest', 'elasticnet', 'quantreg', \
 'mets', 'DEoptim', 'forecast', 'zoo', 'xts', \
 'ISOweek', 'lubridate', 'doParallel', \
 'RJDBC', 'RSQLite', 'data.table' \

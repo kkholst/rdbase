@@ -69,8 +69,8 @@ VOLUME /data
 WORKDIR /data
 
 RUN R -q -e "install.packages(c( \
-'codetools', 'foreign', 'boot', 'cluster', 'rpart', 'KernSmooth', 'MASS', 'nlme', 'lme4', 'mgcv', 'survival', 'data.table' \
-	'timereg', 'lava', 'prodlim', 'ucminf'), repos = 'https://cloud.r-project.org/')" && rm -Rf /tmp/*
+'codetools', 'foreign', 'boot', 'cluster', 'rpart', 'KernSmooth', 'MASS', 'nlme', 'lme4', 'mgcv', 'survival', 'data.table', \
+'timereg', 'lava', 'prodlim', 'ucminf'), repos = 'https://cloud.r-project.org/')" && rm -Rf /tmp/*
 
 RUN cd /tmp; git clone https://github.com/kkholst/mets -b master mets && R CMD INSTALL mets && rm -Rf mets
 
