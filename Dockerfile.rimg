@@ -16,8 +16,6 @@ RUN APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn apt-key adv --keyserver hkp://
 RUN add-apt-repository 'deb [arch=amd64,i386] https://cran.rstudio.com/bin/linux/ubuntu bionic-cran35/'
 RUN apt-get install -y --no-install-recommends \
 	build-essential autoconf cmake binutils-dev git \
-	libboost-all-dev \
-	default-jdk \
 	libcurl4-openssl-dev libssl-dev libssh2-1-dev libxml2-dev curl wget
 RUN apt-get install -y --no-install-recommends python3-pip
 RUN apt-get install -y --no-install-recommends \
@@ -25,7 +23,14 @@ RUN apt-get install -y --no-install-recommends \
         r-base-dev=${R_BASE_VERSION}* \
         r-recommended=${R_BASE_VERSION}* \
 	littler \
-        r-cran-littler
+	r-cran-littler
+RUN apt-get install -y --no-install-recommends \
+	libboost-serialization-dev \
+	libboost-dev \
+	libboost-test-dev \
+	libboost-math-dev \
+	libboost-program-options-dev \
+	default-jdk-headless
 
 # R development packages
 RUN R -q -e "install.packages(c('devtools', 'covr', 'roxygen2', 'testthat'), repos = 'https://cloud.r-project.org/')"
@@ -55,7 +60,7 @@ VOLUME /data
 WORKDIR /data
 RUN useradd -u 1000 -g sudo -ms /bin/bash dev
 RUN chown dev /data
-USER dev
+#USER dev
 
 RUN echo ".libPaths('/home/dev/R/library/')\noptions(repos = 'https://cloud.r-project.org/')\n" \
     > /home/dev/.Rprofile

@@ -3,8 +3,6 @@ FROM openjdk:8u191-jdk-alpine3.9
 MAINTAINER "Klaus Kähler Holst" klaus@holst.it
 
 ENV R_BASE_VERSION 3.5.2
-ENV ARMA_BRANCH=9.200.x
-ENV MLPACK=mlpack-3.0.4
 
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
