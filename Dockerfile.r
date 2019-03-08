@@ -1,3 +1,5 @@
+## -*- mode: dockerfile; -*-
+
 FROM openjdk:8u191-jdk-alpine3.9
 
 MAINTAINER "Klaus Kähler Holst" klaus@holst.it
@@ -19,6 +21,7 @@ ENV PERSISTENT_DEPS \
 	pcre-dev \
 	perl \
 	readline-dev \
+	libexecinfo-dev \
 	libintl \
 	icu-libs \
 	xz-dev\
@@ -28,6 +31,7 @@ ENV PERSISTENT_DEPS \
 	automake \
 	make \
 	git \
+	alpine-sdk \
 	gcc \
 	g++ \
 	cmake \

@@ -32,6 +32,7 @@ RUN	apk add --no-cache --virtual .build-deps $BUILD_DEPS && \
 
 
 RUN R -q -e "install.packages(c( \
+'codetools', \
 'boot', 'cluster', 'rpart', 'KernSmooth', 'MASS', 'Matrix', 'nlme', 'lme4', 'mgcv', 'survival', 'foreign', \
 'caret', 'e1071', 'mboost', 'gbm', 'xgboost', \
 'randomForest', 'quantregForest', 'elasticnet', 'quantreg',\
