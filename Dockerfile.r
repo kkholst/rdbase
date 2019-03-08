@@ -58,7 +58,8 @@ RUN	apk add --no-cache --virtual .build-deps $BUILD_DEPS && \
 	&& make -j $(cat /proc/self/status | awk '$1 == "Cpus_allowed_list:" { print $2 }' | tr , '\n' | awk -F'-' '{ if (NF == 2) count += $2 - $1 + 1; else count += 1 } END { print count }') \
 	&& make install && \
 	echo 'options("repos"="https://cran.rstudio.com")' >> /usr/lib/R/etc/Rprofile.site && \
-	echo '\nCXXFLAGS  += -D__MUSL__\nCXX1XFLAGS += -D__MUSL__\n' >> /usr/lib/R/etc/Makeconf && \
+	echo 'CXXFLAGS  += -D__MUSL__' >> /usr/lib/R/etc/Makeconf && \
+	echo 'CXX1XFLAGS  += -D__MUSL__' >> /usr/lib/R/etc/Makeconf && \
 	cd src/nmath/standalone && \
 	make && \
 	make install && \
