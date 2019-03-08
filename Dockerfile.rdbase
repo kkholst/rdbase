@@ -1,6 +1,6 @@
 ## -*- mode: dockerfile; -*-
 
-FROM kkholst/rdbase:rdr
+FROM kkholst/rdbase:r
 
 MAINTAINER "Klaus Kähler Holst" klaus@holst.it
 
@@ -34,10 +34,10 @@ RUN	apk add --no-cache --virtual .build-deps $BUILD_DEPS && \
 RUN R -q -e "install.packages(c( \
 'boot', 'cluster', 'rpart', 'KernSmooth', 'MASS', 'Matrix', 'nlme', 'lme4', 'mgcv', 'survival', 'foreign', \
 'caret', 'e1071', 'mboost', 'gbm', 'xgboost', \
-'randomForest', 'quantregForest', 'elasticnet', 'quantreg' \
+'randomForest', 'quantregForest', 'elasticnet', 'quantreg',\
 'mets', 'DEoptim', 'forecast', 'zoo', 'xts', \
 'ISOweek', 'lubridate', 'doParallel', \
-'RJDBC', 'RSQLite', 'data.table', \
+'RJDBC', 'RSQLite', 'data.table' \
 ), repos = 'https://cloud.r-project.org/')" && rm -Rf /tmp/*
 
 CMD bash
