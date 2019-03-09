@@ -1,0 +1,26 @@
+## -*- mode: dockerfile; -*-
+
+FROM openjdk:8u191-jdk-alpine3.9
+
+MAINTAINER "Klaus Kähler Holst" klaus@holst.it
+
+ENV R_BASE_VERSION 3.5.2
+
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+
+RUN apk add --no-cache \
+	R R-dev R-doc python3 \
+	curl openssl-dev curl-dev \
+	libxml2-dev gcc g++ gfortran git coreutils bash
+
+RUN R -q -e "install.packages(c('lme4', 'data.table', 'timereg', 'lava', 'prodlim', 'ucminf', 'Rcpp', 'RcppArmadillo', 'RJDBC'), repos = 'https://cloud.r-project.org/')" \
+	&& rm -Rf /tmp/*
+
+RUN cd /tmp; git clone https://github.com/kkholst/lava -b master lava && R CMD INSTALL lava && rm -Rf lava && \
+    cd /tmp; git clone https://github.com/kkholst/mets -b master mets && R CMD INSTALL mets && rm -Rf mets
+
+VOLUME /data
+WORKDIR /data
+
+CMD R --no-save
