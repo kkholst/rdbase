@@ -10,6 +10,7 @@ ENV LANG en_US.UTF-8
 RUN apk add --no-cache \
 	R R-dev R-doc python3 \
 	curl openssl-dev curl-dev \
+	ttf-dejavu \
 	libxml2-dev gcc g++ gfortran git coreutils bash postgresql-dev 
 
 RUN R -q -e "install.packages(c('data.table', 'timereg', 'lava', 'ucminf', 'Rcpp', 'RcppArmadillo', 'RSQLite', 'RPostgreSQL'), repos = 'https://cloud.r-project.org/')" && \
