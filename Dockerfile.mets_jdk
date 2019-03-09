@@ -1,0 +1,14 @@
+## -*- mode: dockerfile; -*-
+
+FROM kkholst/rdbase:r
+
+MAINTAINER "Klaus Kähler Holst" klaus@holst.it
+
+RUN R -q -e "install.packages(c( \
+'codetools', 'foreign', 'boot', 'cluster', 'rpart', 'KernSmooth', 'MASS', 'nlme', 'lme4', 'mgcv', 'survival', 'data.table', \
+'timereg', 'lava', 'prodlim', 'ucminf', 'Rcpp', 'RcppArmadillo', 'RJDBC'), repos = 'https://cloud.r-project.org/')" && rm -Rf /tmp/*
+
+RUN cd /tmp; git clone https://github.com/kkholst/lava -b master lava && R CMD INSTALL lava && rm -Rf lava && \
+    cd /tmp; git clone https://github.com/kkholst/mets -b master mets && R CMD INSTALL mets && rm -Rf mets
+
+CMD R --no-save
