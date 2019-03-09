@@ -32,10 +32,11 @@ RUN	apk add --no-cache --virtual .build-deps $BUILD_DEPS && \
 
 
 RUN R -q -e "install.packages(c( \
-'lme4', 'caret', 'e1071', 'mboost', 'gbm', 'xgboost', \
-'randomForest', 'quantregForest', 'elasticnet', 'quantreg',\
-'DEoptim', 'forecast', 'zoo', 'xts', \
-'ISOweek', 'lubridate', 'doParallel'), repos = 'https://cloud.r-project.org/')" && rm -Rf /tmp/*
+	'lme4', 'caret', 'e1071', 'mboost', 'gbm', 'xgboost', \
+	'randomForest', 'quantregForest', 'elasticnet', 'quantreg',\
+	'DEoptim', 'forecast', 'zoo', 'xts', \
+	'ISOweek', 'lubridate', 'doParallel'), repos = 'https://cloud.r-project.org/')" &&  \
+	rm -Rf /tmp/*
 
 CMD bash
 
