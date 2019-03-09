@@ -8,9 +8,10 @@ ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 
 RUN apk add --no-cache \
-	R R-dev R-doc python3 \
-	curl openssl-dev curl-dev \
-	libxml2-dev gcc g++ gfortran git coreutils bash postgresql-dev \
+	R R-dev R-doc postgresql-dev python3 \
+	curl openssl-dev curl-dev libxml2-dev \
+	ttf-dejavu \
+	gcc g++ gfortran git coreutils bash
 
 RUN R CMD javareconf && \
 	R -q -e "install.packages(c('data.table', 'timereg', 'lava', 'prodlim', 'ucminf', 'Rcpp', 'RcppArmadillo', 'RJDBC', 'RSQLite', 'RPostgreSQL'), repos = 'https://cloud.r-project.org/')" && \
