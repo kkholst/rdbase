@@ -2,9 +2,12 @@ DOCKER=docker
 DOCKER_OPT=--network=host
 IMG=rimg
 CMD=bash
+USER=kkholst
+REPO=rdbase
+TAG=$(IMG)
 
 build:
-	@$(DOCKER) build $(DOCKER_OPT) -f Dockerfile.$(IMG) -t $(IMG) .
+	@$(DOCKER) build $(DOCKER_OPT) -f Dockerfile.$(IMG) -t $(TAG) .
 
 run:
 	@$(DOCKER) run $(DOCKER_OPT) -ti -t $(IMG) bash
@@ -25,3 +28,10 @@ dclean:
 iclean:
 	-@$(DOCKER) rmi $(docker images --filter "dangling=true" -q --no-trunc)
 	@$(DOCKER) images -a | grep "^<none>" | awk '{print $$3}' | xargs $(DOCKER) rmi
+
+dlogin:
+	@$(DOCKER) login --username=$(USER) --password=$(PWD)
+
+dpush:
+	$(DOCKER) build -t $(USER)/$(REPO):$(TAG) . -f Dockerfile.$(IMG)
+	$(DOCKER) push $(USER)/$(REPO):$(TAG)

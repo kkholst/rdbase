@@ -14,29 +14,27 @@ ENV BUILD_DEPS \
 
 ENV PERSISTENT_DEPS \
 	boost-math boost-serialization boost-python3 \
-	boost-unit_test_framework boost-program_options \
-	ca-certificates curl autoconf automake make \
-	python3 # cython cython-dev
+	boost-unit_test_framework boost-program_options libexecinfo-dev 
+	# ca-certificates curl autoconf automake make \
+	# python3 # cython cython-dev
 
 RUN	apk add --no-cache --virtual .build-deps $BUILD_DEPS && \
 	apk add --no-cache --virtual .persistent-deps $PERSISTENT_DEPS && \
-        apk add --no-cache \
-	--repository  http://dl-3.alpinelinux.org/alpine/edge/testing \
-	hdf5 hdf5-dev && \
-	git clone http://gitlab.com/conradsnicta/armadillo-code -b ${ARMA_BRANCH} --depth=1 armadillo && \
-	cd armadillo; cmake . && make && make install && rm -Rf armadillo && \
+         apk add --no-cache \
+ 	--repository  http://dl-3.alpinelinux.org/alpine/edge/testing \
+ 	hdf5 hdf5-dev && \
+	cd /tmp; git clone http://gitlab.com/conradsnicta/armadillo-code -b ${ARMA_BRANCH} --depth=1 armadillo && \
+	cd armadillo; cmake . && make && make install && cd /tmp; rm -Rf armadillo && \
 	wget http://www.mlpack.org/files/${MLPACK}.tar.gz && tar xzf ${MLPACK}.tar.gz && rm ${MLPACK}.tar.gz && \
 	cd ${MLPACK} && mkdir build && cd build && \
 	cmake -D BUILD_TESTS=OFF -D BUILD_CLI_EXECUTABLES=OFF -D DEBUG=OFF -D PROFILE=OFF ../ && \
-	make && make install && make clean && rm -Rf ${MLPACK} && \
+	make && make install && make clean && cd /tmp; rm -Rf ${MLPACK} && \
+	git clone https://github.com/dmlc/dmlc-core.git --depth=1 && \
+	cd dmlc-core; cmake . make && make install && cd /tmp; rm -Rf dmlc-core && \
 	apk del .build-deps
 
 
-RUN R -q -e "install.packages(c( \
-	'lme4', 'caret', 'e1071', 'mboost', 'gbm', 'xgboost', \
-	'randomForest', 'quantregForest', 'elasticnet', 'quantreg',\
-	'DEoptim', 'forecast', 'zoo', 'xts', \
-	'ISOweek', 'lubridate', 'doParallel'), repos = 'https://cloud.r-project.org/')" &&  \
+RUN R -q -e "install.packages(c('lme4', 'caret', 'e1071', 'mboost', 'gbm', 'randomForest', 'quantregForest', 'elasticnet', 'quantreg', 'DEoptim', 'forecast', 'zoo', 'xts', 'ISOweek', 'lubridate', 'doParallel'), repos = 'https://cloud.r-project.org/')" &&  \
 	rm -Rf /tmp/*
 
 CMD bash

@@ -6,6 +6,7 @@ Base docker images for statistical modeling
 - python 3.6.7
 - armadillo 9.200
 - mlpack 3.0.4
+- dmlc
 - boost
 
 R-packages:
