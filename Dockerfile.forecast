@@ -1,6 +1,6 @@
 ## -*- mode: dockerfile; -*-
 
-FROM kkholst/rdbase:rpostgres
+FROM kkholst/rdbase:rx
 
 MAINTAINER "Klaus Kähler Holst" klaus@holst.it
 
