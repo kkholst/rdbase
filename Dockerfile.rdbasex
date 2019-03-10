@@ -6,6 +6,7 @@ MAINTAINER "Klaus Kähler Holst" klaus@holst.it
 
 ENV ARMA_BRANCH=9.200.x
 ENV MLPACK=mlpack-3.0.4
+ENV DMLC_BRANCH=master
 
 ENV $LD_LIBRARY_PATH:LD_LIBRARY_PATH /usr/local/lib
 
@@ -29,10 +30,9 @@ RUN	apk add --no-cache --virtual .build-deps $BUILD_DEPS && \
 	cd ${MLPACK} && mkdir build && cd build && \
 	cmake -D BUILD_TESTS=OFF -D BUILD_CLI_EXECUTABLES=OFF -D DEBUG=OFF -D PROFILE=OFF ../ && \
 	make && make install && make clean && cd /tmp; rm -Rf ${MLPACK} && \
-	git clone https://github.com/dmlc/dmlc-core.git --depth=1 && \
+	git clone https://github.com/dmlc/dmlc-core.git --depth=1 -b ${DMLC_BRANCH} && \
 	cd dmlc-core; cmake . make && make install && cd /tmp; rm -Rf dmlc-core && \
 	apk del .build-deps
-
 
 RUN R -q -e "install.packages(c('lme4', 'caret', 'e1071', 'mboost', 'gbm', 'randomForest', 'quantregForest', 'elasticnet', 'quantreg', 'DEoptim', 'forecast', 'zoo', 'xts', 'ISOweek', 'lubridate', 'doParallel'), repos = 'https://cloud.r-project.org/')" &&  \
 	rm -Rf /tmp/*
