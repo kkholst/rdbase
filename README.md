@@ -27,7 +27,7 @@ Like rpostgres but X11 enabled.
 ## forecast
 
 Based on 'rx' with R-packages for time series modeling
-- zoo
+	- zoo
 - xts
 - forecast
 
@@ -51,7 +51,7 @@ R-packages (ML)
 - quantregForest
 - elasticnet
 
-R-packages (Statistics)
+R-packages (statistics)
 - mets
 - lme4
 - lava
@@ -63,7 +63,7 @@ R packages (time series):
 - lubridate
 - ISOweek
 
-- R packages (database)
+R packages (database)
 - RPostgreSQL
 - RSQLite
 - RJDBC
