@@ -2,6 +2,8 @@
 
 Base docker images for statistical modeling
 
+https://cloud.docker.com/u/kkholst/repository/docker/kkholst/rdbase
+
 ## rpostgres
 
 - R (3.5.1)
@@ -10,13 +12,13 @@ Base docker images for statistical modeling
 - openJDK 8
 
 R-packages: 
-	- RJDBC
-	- RSQLite
-	- RPostgreSQL
-	- data.table
-	- prodlim
-	- mets (installed from latest master branch)
-	- lava (installed from latest master branch)
+- RJDBC
+- RSQLite
+- RPostgreSQL
+- data.table
+- prodlim
+- mets (installed from latest master branch)
+- lava (installed from latest master branch)
 
 ## rx
 
