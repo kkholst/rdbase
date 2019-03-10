@@ -15,6 +15,7 @@ ENV BUILD_DEPS \
 ENV PERSISTENT_DEPS \
 	boost-math boost-serialization boost-python3 \
 	boost-unit_test_framework boost-program_options \
+	cmake ca-certificates curl autoconf automake make \
 	python3 # cython cython-dev
 
 RUN	apk add --no-cache --virtual .build-deps $BUILD_DEPS && \
