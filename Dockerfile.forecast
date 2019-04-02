@@ -1,10 +1,10 @@
 ## -*- mode: dockerfile; -*-
 
-FROM kkholst/rdbase:rx
+FROM kkholst/rdbase:rpostgres
 
 MAINTAINER "Klaus Kähler Holst" klaus@holst.it
 
-RUN R -q -e "install.packages(c('zoo', 'xts', 'forecast', 'dplyr', 'doParallel'), repos = 'https://cloud.r-project.org/')" && \
+RUN R -q -e "install.packages(c('zoo', 'xts', 'forecast', 'dplyr', 'doParallel', 'ISOweek', 'quantreg'),repos = 'https://cloud.r-project.org/')" && \
 rm -Rf /tmp/*
 
 CMD R --no-save

@@ -1,6 +1,6 @@
 ## -*- mode: dockerfile; -*-
 
-FROM kkholst/rdbase:r
+FROM kkholst/rdbase:r_jdk
 
 MAINTAINER "Klaus Kähler Holst" klaus@holst.it
 
@@ -10,7 +10,7 @@ ENV MLPACK=mlpack-3.0.4
 ENV $LD_LIBRARY_PATH:LD_LIBRARY_PATH /usr/local/lib
 
 ENV BUILD_DEPS \
-	boost-dev
+	boost-dev cmake
 
 ENV PERSISTENT_DEPS \
 	boost-math boost-serialization boost-python3 \

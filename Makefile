@@ -33,5 +33,5 @@ dlogin:
 	@$(DOCKER) login --username=$(USER) --password=$(PWD)
 
 dpush:
-	$(DOCKER) build -t $(USER)/$(REPO):$(TAG) . -f Dockerfile.$(IMG)
+	$(DOCKER) build $(DOCKER_OPT) -t $(USER)/$(REPO):$(TAG) . -f Dockerfile.$(IMG)
 	$(DOCKER) push $(USER)/$(REPO):$(TAG)

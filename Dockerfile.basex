@@ -4,7 +4,7 @@ FROM kkholst/rdbase:rx
 
 MAINTAINER "Klaus Kähler Holst" klaus@holst.it
 
-ENV ARMA_BRANCH=9.200.x
+ENV ARMA_BRANCH=9.300.x
 ENV MLPACK=mlpack-3.0.4
 ENV DMLC_BRANCH=master
 
