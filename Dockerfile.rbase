@@ -1,14 +1,11 @@
 ## -*- mode: dockerfile; -*-
 
-FROM kkholst/rdbase:r
+FROM r
 
 MAINTAINER "Klaus Kähler Holst" klaus@holst.it
 
-RUN R -q -e "install.packages(c( \
-'codetools', 'foreign', \
-'boot', 'cluster', 'rpart', 'KernSmooth', 'MASS', 'Matrix', 'nlme', 'mgcv', 'survival',  \
-'randomForest', 'glmnet', 'quantreg', 'mets', 'DEoptim', 'xts' \
-), repos = 'https://cloud.r-project.org/')" && rm -Rf /tmp/*
+RUN R -q -e "install.packages(c('mets','RcppEnsmallen','xts'))" \
+	&& rm -Rf /tmp/*
 
 CMD bash
 

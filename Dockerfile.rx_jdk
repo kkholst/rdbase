@@ -7,7 +7,7 @@ ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 
 RUN apk add --no-cache \
-R R-dev R-doc postgresql-dev python3 cmake \
+R R-dev R-doc postgresql-dev python3 python3-dev cmake \
 curl openssl-dev curl-dev libxml2-dev ttf-dejavu \
 gcc g++ gfortran git coreutils bash
 
