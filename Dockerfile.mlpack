@@ -45,7 +45,7 @@ RUN	apk add --no-cache --virtual .build-deps $BUILD_DEPS && \
 		pip3 install --upgrade pip setuptools && \
 		if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
 		if [ ! -e /usr/bin/python ]; then ln -sf /usr/bin/python3 /usr/bin/python; fi && \
-		if [ ! -z "$PYTHONLIB" ]; then pip3 install pandas ${PYTHONLIBS}; fi  && \
+		if [ ! -z "$PYTHONLIBS" ]; then pip3 install pandas ${PYTHONLIBS}; fi  && \
 		export PYTHON_INCLUDE=`python3-config --includes | awk '{ print $1 }' | sed "s/-I//"` && \
 		export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:$PYTHON_INCLUDE" && \
 		BOOSTLIBS="$BOOSTLIBS python"; \
@@ -74,11 +74,11 @@ RUN	apk add --no-cache cmake ninja git openblas-dev && \
 	mkdir build; cd build; cmake .. -G Ninja && ninja && ninja install && \
  	cd /tmp; wget http://www.mlpack.org/files/${MLPACK}.tar.gz && tar xzf ${MLPACK}.tar.gz && \
   	cd ${MLPACK} && mkdir build && cd build && \
-	cmake -G Ninja -D BUILD_TESTS=OFF -D BUILD_CLI_EXECUTABLES=OFF -D DEBUG=OFF -D PROFILE=OFF ../ && \
+	cmake -G Ninja -D BUILD_PYTHON_BINDINGS=OFF -D BUILD_TESTS=OFF -D BUILD_CLI_EXECUTABLES=OFF -D DEBUG=OFF -D PROFILE=OFF ../ && \
 	ninja && ninja install && \
 	apk del --no-cache cmake ninja git openblas-dev && cd /tmp; rm -Rf * /root/.cache && \
-	if [ "$USE_HDF5" = "ON" ]; then (apk del --no-cache hdf5-dev); fi
-
+	#if [ "$USE_HDF5" = "ON" ]; then (apk del --no-cache hdf5-dev); fi && \
+	echo "done"
 
 
 # git clone https://github.com/dmlc/dmlc-core.git --depth=1 -b ${DMLC_BRANCH} && \

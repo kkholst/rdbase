@@ -4,6 +4,17 @@ Base docker images for statistical modeling
 
 https://cloud.docker.com/u/kkholst/repository/docker/kkholst/rdbase
 
+## r
+Minimal R image (ICU, X11 disabled and without recommended libraries).
+Includes armadillo C++ library
+
+## mlpack
+- Ensmallen 
+- Armadillo 9.3
+- MLPack 3
+-  
+
+
 ## rpostgres
 
 - R (3.5.1)

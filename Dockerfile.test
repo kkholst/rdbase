@@ -2,6 +2,8 @@
 
 FROM r
 
+MAINTAINER "Klaus Kähler Holst" klaus@holst.it
+
 ENV ARMA=9.300.x
 ENV MLPACK=mlpack-3.0.4
 ENV DMLC=master
@@ -36,6 +38,9 @@ RUN	apk add --no-cache cmake ninja git && \
 	if [ "$USE_HDF5" = "ON" ]; then (apk del --no-cache hdf5-dev); fi && \
 	apk del --no-cache cmake ninja git && cd /tmp; rm -Rf * /root/.cache
 
+
+RUN R -q -e "install.packages(c('RcppEnsmallen'))" \
+	&& rm -Rf /tmp/*
 
 # RUN	apk add --no-cache python3 python3-dev && \
 # 	python3 -m ensurepip && \
