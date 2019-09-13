@@ -1,0 +1,37 @@
+## -*- mode: dockerfile; -*-
+
+FROM alpine:3.9
+
+MAINTAINER "Klaus Kähler Holst" klaus@holst.it
+
+ENV BUILD_DEPS \
+	go \
+	musl-dev \
+	curl-dev \
+	readline-dev \
+	openssl-dev \
+	g++ \
+	git
+
+ENV PERSISTENT_DEPS \
+	bash
+
+ENV HUGO_VER=release-0.55.6
+
+RUN	apk add --no-cache --virtual .build-deps $BUILD_DEPS && \
+	apk add --no-cache --virtual .persistent-deps $PERSISTENT_DEPS && \
+	cd /tmp; git clone --branch $HUGO_VER  https://github.com/gohugoio/hugo.git; \
+	cd hugo && go install --ldflags '-linkmode external -extldflags "-static"' --tags extended && \
+	cp /root/go/bin/hugo /usr/local/bin/hugo && \
+	rm -Rf /root/go && \
+	apk del --no-cache .build-deps && \ 
+	rm -Rf * /root/.cache /tmp/* && \
+	echo "done"	
+
+WORKDIR /homepage
+
+ENV PORT 5000
+EXPOSE $PORT
+ENV VIRTUAL_HOST="http://docker.local:$PORT"
+
+CMD /usr/local/bin/hugo server --bind="0.0.0.0" --i18n-warnings --port $PORT --watch --source /homepage
