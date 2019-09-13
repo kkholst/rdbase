@@ -3,8 +3,8 @@ FROM alpine:3.9
 
 MAINTAINER "Klaus Kähler Holst" klaus@holst.it
 
-ENV ARMA_BRANCH=9.300.x
-ENV R_BASE_VERSION 3.5.3
+ENV ARMA_BRANCH=9.700.x
+ENV R_BASE_VERSION 3.6.1
 ARG USE_HDF5=OFF
 
 ENV BUILD_DEPS \
@@ -12,7 +12,6 @@ ENV BUILD_DEPS \
 	cairo-dev \
 	curl-dev \
 	readline-dev \
-	libpng-dev \
 	openssl-dev \
 	libxml2-dev \
 	bzip2-dev \
@@ -34,6 +33,9 @@ ENV BUILD_DEPS \
 ENV PERSISTENT_DEPS \
 	libbz2 xz-libs \
 	pcre-dev \
+	libpng \
+	ttf-dejavu \
+	pango \
 	libexecinfo-dev \
 	libcurl \
 	make \
@@ -53,7 +55,7 @@ RUN	apk add --no-cache --virtual .build-deps $BUILD_DEPS && \
 	--repository  http://dl-3.alpinelinux.org/alpine/edge/testing \
 	hdf5 hdf5-dev); fi && \
 	mkdir /tmp/build_r && cd /tmp/build_r && \
-	curl -sSLO https://cran.rstudio.com/src/base/R-${R_BASE_VERSION:0:1}/R-${R_BASE_VERSION}.tar.gz \
+	curl -sSLO https://cran.r-project.org/src/base/R-${R_BASE_VERSION:0:1}/R-${R_BASE_VERSION}.tar.gz \
 	&& tar xf R-${R_BASE_VERSION}.tar.gz && cd R-${R_BASE_VERSION} \
 	&& ./configure --build=$CBUILD --host=$CHOST --prefix=/usr --sysconfdir=/etc --mandir=/usr/share/man --localstatedir=/var \
 	--enable-R-shlib \
@@ -64,7 +66,7 @@ RUN	apk add --no-cache --virtual .build-deps $BUILD_DEPS && \
 	--with-aqua=no \
 	--without-recommended-packages \
 	--disable-nls \
-	--with-jpeglib=no --with-libtiff=no \
+	--with-pnglib=yes --with-jpeglib=no --with-libtiff=no \
 	&& make -j $(cat /proc/self/status | awk '$1 == "Cpus_allowed_list:" { print $2 }' | tr , '\n' | awk -F'-' '{ if (NF == 2) count += $2 - $1 + 1; else count += 1 } END { print count }') \
 	&& make install && \
 	echo 'options("repos"="https://cloud.r-project.org/")' >> /usr/lib/R/etc/Rprofile.site && \
