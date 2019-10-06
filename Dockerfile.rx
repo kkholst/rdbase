@@ -1,6 +1,6 @@
 ## -*- mode: dockerfile; -*-
 
-FROM alpine:3.9
+FROM alpine:3.10.2
 MAINTAINER "Klaus Kähler Holst" klaus@holst.it
 
 ENV LC_ALL en_US.UTF-8

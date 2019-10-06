@@ -1,5 +1,5 @@
 ## -*- mode: dockerfile; -*-
-FROM alpine:3.9
+FROM alpine:3.10.2
 
 MAINTAINER "Klaus Kähler Holst" klaus@holst.it
 
@@ -31,6 +31,7 @@ ENV BUILD_DEPS \
 	python3
 	
 ENV PERSISTENT_DEPS \
+	lapack-dev \
 	libbz2 xz-libs \
 	pcre-dev \
 	libpng \

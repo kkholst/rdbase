@@ -2,7 +2,7 @@
 FROM openjdk:8u191-jdk-alpine3.9
 MAINTAINER "Klaus Kähler Holst" klaus@holst.it
 
-ENV R_BASE_VERSION 3.5.3
+ENV R_BASE_VERSION 3.6.0
 
 ENV BUILD_DEPS \
 	perl \

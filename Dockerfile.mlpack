@@ -17,18 +17,17 @@ ENV ENSMALLEN=master
 ENV BUILD_DEPS \
 	ninja \
 	curl \
-	cmake \
-	openblas-dev \
 	git
 	
 ENV PERSISTENT_DEPS \
-	openblas \
+	lapack-dev \
 	libbz2 xz-libs \
 	pcre-dev \
 	libexecinfo-dev \
 	libcurl \
 	make \
 	g++ \
+	cmake \
 	musl-dev \
 	coreutils \
 	bash
@@ -63,7 +62,7 @@ RUN	apk add --no-cache --virtual .build-deps $BUILD_DEPS && \
 	cd; rm -rf /var/cache/apk/* /tmp/* /root/.cache 
 
 
-RUN	apk add --no-cache cmake ninja git openblas-dev && \
+RUN	apk add --no-cache ninja git && \
 	if [ "$USE_HDF5" = "ON" ]; then (apk add --no-cache \
 	--repository  http://dl-3.alpinelinux.org/alpine/edge/testing \
 	hdf5 hdf5-dev); fi && \
@@ -76,7 +75,7 @@ RUN	apk add --no-cache cmake ninja git openblas-dev && \
   	cd ${MLPACK} && mkdir build && cd build && \
 	cmake -G Ninja -D BUILD_PYTHON_BINDINGS=OFF -D BUILD_TESTS=OFF -D BUILD_CLI_EXECUTABLES=OFF -D DEBUG=OFF -D PROFILE=OFF ../ && \
 	ninja && ninja install && \
-	apk del --no-cache cmake ninja git openblas-dev && cd /tmp; rm -Rf * /root/.cache && \
+	apk del --no-cache ninja git && cd /tmp; rm -Rf * /root/.cache && \
 	#if [ "$USE_HDF5" = "ON" ]; then (apk del --no-cache hdf5-dev); fi && \
 	echo "done"
 
