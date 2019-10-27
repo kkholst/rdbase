@@ -8,6 +8,11 @@ TAG=$(IMG)
 PWD:=`pwd`
 CONTAINER_EXISTS:=$(shell $(DOCKER) ps | awk '{print $$NF}' | grep -w run_$(IMG))
 
+default:
+	$(MAKE) build IMG=base
+	$(MAKE) login
+	$(MAKE) dpush
+
 .PHONY: build
 build:
 	@$(DOCKER) build --rm $(DOCKER_OPT) -f Dockerfile.$(IMG) -t $(TAG) .
