@@ -31,7 +31,7 @@ RUN	apk add --no-cache --virtual .build-deps $BUILD_DEPS && \
 	rm -rf /var/cache/apk/* /tmp/*
 
 RUN 	R -q -e "install.packages(c('RcppEnsmallen'))" &&  \
-	pip3 install numpy && \
+	pip3 install numpy scikit-build  && \
  	rm -Rf /tmp/* 
 
 CMD R --no-save

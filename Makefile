@@ -3,15 +3,17 @@ DOCKER_OPT=--network=host
 IMG=test
 CMD=bash
 USER=kkholst
-REPO=rdbase
+REPO=stat
 TAG=$(IMG)
 PWD:=`pwd`
 CONTAINER_EXISTS:=$(shell $(DOCKER) ps | awk '{print $$NF}' | grep -w run_$(IMG))
 
 default:
-	$(MAKE) build IMG=base
-	$(MAKE) login
-	$(MAKE) dpush
+#	$(MAKE) login
+	$(MAKE) build IMG=r
+	$(MAKE) dpush IMG=r
+	docker build -t kkholst/stat:base -t kkholst/stat:latest . -f Dockerfile.base
+	$(MAKE) dpush IMG=base
 
 .PHONY: build
 build:

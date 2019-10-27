@@ -72,9 +72,9 @@ RUN	apk add --no-cache --virtual .build-deps $BUILD_DEPS && \
 	&& make -j $(cat /proc/self/status | awk '$1 == "Cpus_allowed_list:" { print $2 }' | tr , '\n' | awk -F'-' '{ if (NF == 2) count += $2 - $1 + 1; else count += 1 } END { print count }') \
 	&& make install && \
 	echo 'options("repos"="https://cloud.r-project.org/")' >> /usr/lib/R/etc/Rprofile.site && \
-	echo 'CXXFLAGS  += -D__MUSL__ -D_BSD_SOURCE' >> /usr/lib/R/etc/Makeconf && \
-	echo 'CXX1XFLAGS  += -D__MUSL__ -D_BSD_SOURCE ' >> /usr/lib/R/etc/Makeconf && \
-	echo 'CXX11FLAGS  += -D__MUSL__ -D_BSD_SOURCE ' >> /usr/lib/R/etc/Makeconf && \
+	echo 'CXXFLAGS  += -D__MUSL__' >> /usr/lib/R/etc/Makeconf && \
+	echo 'CXX1XFLAGS  += -D__MUSL__' >> /usr/lib/R/etc/Makeconf && \
+	echo 'CXX11FLAGS  += -D__MUSL__' >> /usr/lib/R/etc/Makeconf && \
 	cd src/nmath/standalone && \
 	make && \
 	make install && \
@@ -85,6 +85,7 @@ RUN	apk add --no-cache --virtual .build-deps $BUILD_DEPS && \
 	if [ "$USE_HDF5" = "ON" ]; then (apk del --no-cache hdf5-dev); fi && \
 	rm -Rf /tmp/* /root/.cache /var/cache/apk/* 
 
+ENV  CXXFLAGS="-D__MUSL__ -D_BSD_SOURCE"
 
 VOLUME /data
 WORKDIR /data
