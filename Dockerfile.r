@@ -1,10 +1,10 @@
 ## -*- mode: dockerfile; -*-
-FROM alpine:3.10.2
+FROM alpine:3.11.3
 
 MAINTAINER "Klaus Kähler Holst" klaus@holst.it
 
-ENV ARMA_BRANCH=9.800.x
-ENV R_BASE_VERSION 3.6.1
+ENV ARMA_BRANCH=9.900.x
+ENV R_BASE_VERSION 3.6.3
 ARG USE_HDF5=OFF
 
 ENV BUILD_DEPS \
