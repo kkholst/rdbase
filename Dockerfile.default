@@ -1,0 +1,12 @@
+## -*- mode: dockerfile; -*-
+
+FROM kkholst/stat:base
+
+MAINTAINER "Klaus Kähler Holst" klaus@holst.it
+
+RUN pip install scipy patsy pandas statsmodels 
+RUN apk add tmux mg git ninja ccache
+
+CMD bash
+
+
