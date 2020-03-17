@@ -1,9 +1,10 @@
 ## -*- mode: dockerfile; -*-
+
 FROM alpine:3.11.3
 
 MAINTAINER "Klaus Kähler Holst" klaus@holst.it
 
-ENV ARMA_BRANCH=9.900.x
+#ENV ARMA_BRANCH=9.900.x
 ENV R_BASE_VERSION 3.6.3
 ARG USE_HDF5=OFF
 
@@ -78,9 +79,10 @@ RUN	apk add --no-cache --virtual .build-deps $BUILD_DEPS && \
 	cd src/nmath/standalone && \
 	make && \
 	make install && \
+        if [ ! "$ARMA_BRANCH" = "" ]; then \
 	cd /tmp; git clone https://gitlab.com/conradsnicta/armadillo-code -b ${ARMA_BRANCH} --depth=1 armadillo && cd armadillo; \
 	cmake -G Ninja -D DETECT_HDF5=${USE_HDF5} ./ && \
-	ninja && ninja install && cd /tmp; rm -Rf /tmp/armadillo && \
+	ninja && ninja install && cd /tmp; rm -Rf /tmp/armadillo; fi && \        
 	apk del --no-cache .build-deps && \
 	if [ "$USE_HDF5" = "ON" ]; then (apk del --no-cache hdf5-dev); fi && \
 	rm -Rf /tmp/* /root/.cache /var/cache/apk/* 
