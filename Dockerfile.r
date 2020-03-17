@@ -32,6 +32,7 @@ ENV BUILD_DEPS \
 	
 ENV PERSISTENT_DEPS \
 	lapack-dev \
+	blas-dev \
 	libbz2 xz-libs \
 	linux-headers \
 	pcre-dev \
