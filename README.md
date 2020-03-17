@@ -16,7 +16,7 @@ Python 3.8
 
 ------
 
-# hugo
+## hugo
 Minimal hugo 0.66.0-extended.
 
 ## mlpack
