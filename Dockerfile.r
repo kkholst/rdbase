@@ -32,7 +32,7 @@ ENV BUILD_DEPS \
 	
 ENV PERSISTENT_DEPS \
 	lapack-dev \
-	blas-dev \
+	openblas-dev \
 	libbz2 xz-libs \
 	linux-headers \
 	pcre-dev \
