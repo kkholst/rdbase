@@ -5,14 +5,14 @@ Base docker images for statistical modeling based on Alpine 3.11.3.
 https://cloud.docker.com/u/kkholst/repository/docker/kkholst/stat
 
 ## r
-Minimal R image (ICU, X11 disabled and without recommended libraries)
+Minimal R image (version 3.6.3 with ICU, X11 disabled and without recommended libraries)
 without the GNU C++ and Fortran compiler.
 
 ## base
-R and Python 3 (derived from the 'r' image) with numpy and scikit-build.
+R 3.6.3 with RcppEnsmallen and Python 3.8 (derived from the 'r' image) with numpy and scikit-build.
 
 ## python
-Python 3
+Python 3.8
 
 ------
 

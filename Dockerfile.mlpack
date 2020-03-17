@@ -4,8 +4,8 @@ FROM alpine:3.9
 
 MAINTAINER "Klaus Kähler Holst" klaus@holst.it
 
-ENV ARMA=9.300.x
-ENV MLPACK=mlpack-3.0.4
+ENV ARMA=9.900.x
+ENV MLPACK=mlpack-3.2.2
 ENV DMLC=master
 ENV BOOST=boost_1_69_0
 ENV BOOSTLIBS="predef serialization math program_options heap spirit minimal"
