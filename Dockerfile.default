@@ -13,8 +13,8 @@ RUN 	R -q -e "install.packages(c('RcppEnsmallen'))" &&  \
 RUN	apk add tmux mg git ninja ccache && \
 	rm -Rf /tmp/* /root/.cache /var/cache/apk/*
 
-# RUN	pip3 install pandas==1.0.0  patsy statsmodels && \
-#  rm -Rf /tmp/* /root/.cache /var/cache/apk/*
+RUN	pip3 install pandas && \
+	rm -Rf /tmp/* /root/.cache /var/cache/apk/*
 
 CMD bash
 
