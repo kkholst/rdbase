@@ -8,25 +8,13 @@ https://cloud.docker.com/u/kkholst/repository/docker/kkholst/stat
 Derived from the 'base' image
 
 R 3.6.3:
-- Rcpp
-- RcppArmadillo
-- RcppEnsmallen 
+- Rcpp, RcppArmadillo, RcppEnsmallen 
 
 Python 3.8:
-- numpy
-- pandas
-- patsy
-- scikit-build
-- scipy
-- statsmodels
+- numpy, pandas, scikit-build, scipy
 
-Build chain and development tools:
-- tmux
-- mg
-- git
-- ninja
-- cmake
-- ccache
+Build chain:
+- cmake, ninja, ccache
 
 ## base
 R 3.6.3 with RcppEnsmallen and Python 3.8 (derived from the 'r' image).
