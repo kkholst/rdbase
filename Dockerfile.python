@@ -1,26 +1,5 @@
 ## -*- mode: dockerfile; -*-
 
-#FROM python:3.8-slim-buster
-FROM alpine:3.11.3
-
-MAINTAINER "Klaus Kähler Holst" klaus@holst.it
-
-ENV BUILD_DEPS ""
-ENV PERSISTENT_DEPS \
-	python3 \
-	musl-dev \
-        git \
-	bash
-
-RUN	apk add --no-cache --virtual .build-deps $BUILD_DEPS && \
-	apk add --no-cache --virtual .persistent-deps $PERSISTENT_DEPS && \
-	python3 -m ensurepip && \
-	rm -r /usr/lib/python*/ensurepip && \
-	pip3 install --upgrade pip setuptools && \
-	if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
-	if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 /usr/bin/python; fi && \
-	apk del --no-cache .build-deps && apk add --no-cache .persistent-deps && \
-	rm -Rf /tmp/* /root/.cache /var/cache/apk/*
-
+FROM python:3.8-slim-buster
 
 CMD bash

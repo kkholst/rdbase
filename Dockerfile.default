@@ -4,17 +4,12 @@ FROM kkholst/stat:base
 
 MAINTAINER "Klaus Kähler Holst" klaus@holst.it
 
-
 RUN 	R -q -e "install.packages(c('RcppEnsmallen'))" &&  \
 	rm -Rf /tmp/* /root/.cache
 
-RUN 	pip3 install scipy==1.3.2 numpy scikit-build pandas && \
+RUN 	pip3 install scipy numpy scikit-build pandas && \
 	rm -Rf /tmp/* /root/.cache
 
-RUN	apk add --no-cache cmake ccache ninja && \ 
-	rm -Rf /tmp/* /root/.cache /var/cache/apk/*
-
+RUN	install_packages cmake ccache ninja
 
 CMD bash
-
-
