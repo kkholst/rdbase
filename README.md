@@ -24,7 +24,7 @@ Minimal R image (version 4.0.0 with ICU, X11 disabled and without recommended li
 without the GNU C++ and Fortran compiler.
 
 ## python
-Minimal python 3.7.3 image.
+Python 3.9.0a5 image.
 
 ------
 

@@ -1,5 +1,34 @@
 ## -*- mode: dockerfile; -*-
 
-FROM python:3.8-slim-buster
+FROM bitnami/minideb:buster
+
+MAINTAINER "Klaus Kähler Holst" klaus@holst.it
+
+ENV PYTHON_BASE_VERSION 3.9.0
+ENV PYTHON_RELEASE a5
+
+ENV BUILD_DEPS \
+	libssl-dev \
+	zlib1g-dev \
+	libbz2-dev \
+	libreadline-dev \
+	libsqlite3-dev \
+	libncurses5-dev \
+	libncursesw5-dev \
+	wget curl xz-utils
+
+ENV PERSISTENT_DEPS \
+	ca-certificates bash \
+	gcc g++ gfortran make
+
+RUN install_packages ${PERSISTENT_DEPS} ${BUILD_DEPS} && \
+	cd /tmp; curl -sSLO https://www.python.org/ftp/python/${PYTHON_BASE_VERSION}/Python-${PYTHON_BASE_VERSION}${PYTHON_RELEASE}.tgz && \
+	tar xf Python-${PYTHON_BASE_VERSION}${PYTHON_RELEASE}.tgz && cd Python-${PYTHON_BASE_VERSION}${PYTHON_RELEASE} && \
+	./configure --prefix=/usr --sysconfdir=/etc --mandir=/usr/share/man --localstatedir=/var \
+	--enable-optimizations --with-ensurepip=install && \
+	make -j $(cat /proc/self/status | awk '$1 == "Cpus_allowed_list:" { print $2 }' | tr , '\n' | awk -F'-' '{ if (NF == 2) count += $2 - $1 + 1; else count += 1 } END { print count }') && \
+	make install && \
+	apt-get remove ${BUILD_DEPS} -y && \
+	cd /; rm -Rf /tmp/*
 
 CMD bash
