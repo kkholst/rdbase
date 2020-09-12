@@ -4,7 +4,7 @@ FROM bitnami/minideb:buster
 
 MAINTAINER "Klaus Kähler Holst" klaus@holst.it
 
-ENV R_BASE_VERSION 4.0.0
+ENV R_BASE_VERSION 4.0.2
 
 ENV BUILD_DEPS \
 	libreadline-dev \
