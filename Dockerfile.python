@@ -4,8 +4,8 @@ FROM bitnami/minideb:buster
 
 MAINTAINER "Klaus Kähler Holst" klaus@holst.it
 
-ENV PYTHON_BASE_VERSION 3.9.0
-ENV PYTHON_RELEASE a5
+ENV PYTHON_BASE_VERSION 3.10.4
+#ENV PYTHON_RELEASE a5
 
 ENV BUILD_DEPS \
 	libssl-dev \

@@ -4,12 +4,12 @@ FROM kkholst/stat:base
 
 MAINTAINER "Klaus Kähler Holst" klaus@holst.it
 
-RUN 	R -q -e "install.packages(c('RcppEnsmallen'))" &&  \
+RUN 	R -q -e "install.packages(c('RcppEnsmallen'), repos='https://cloud.r-project.org/')" &&  \
 	rm -Rf /tmp/* /root/.cache
 
-RUN 	pip3 install scipy numpy scikit-build pandas && \
+RUN 	pip3 install scipy numpy scikit-build pandas ninja cmake && \
 	rm -Rf /tmp/* /root/.cache
 
-RUN	install_packages cmake ccache ninja
+RUN	install_packages ccache
 
 CMD bash

@@ -1,4 +1,4 @@
-DOCKER=docker
+DOCKER=podman
 DOCKER_OPT=--network=host
 IMG=test
 CMD=bash
@@ -62,15 +62,13 @@ iclean:
 
 .PHONY: login
 login:
-	@$(DOCKER) login --username=$(USER)
+	@$(DOCKER) login docker.com --username=$(USER)
 
 .PHONY: dlogin
 dlogin:
-	@$(DOCKER) login --username=$(USER) --password=$(PWD)
+	@$(DOCKER) login docker.com --username=$(USER) --password=$(PWD)
 
 .PHONY: dpush
 dpush:
 	$(DOCKER) build --rm $(DOCKER_OPT) -t $(USER)/$(REPO):$(TAG) . -f Dockerfile.$(IMG)
-	$(DOCKER) push $(USER)/$(REPO):$(TAG)
-
-
+	$(DOCKER) push localhost/$(USER)/$(REPO):$(TAG) $(USER)/$(REPO):$(TAG)
