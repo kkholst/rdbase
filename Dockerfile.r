@@ -1,10 +1,10 @@
 ## -*- mode: dockerfile; -*-
 
-FROM bitnami/minideb:buster
+FROM bitnami/minideb:bookworm
 
 MAINTAINER "Klaus Kähler Holst" klaus@holst.it
 
-ENV R_BASE_VERSION 4.1.3
+ENV R_BASE_VERSION 4.2.1
 
 ENV BUILD_DEPS \
 	libreadline-dev \

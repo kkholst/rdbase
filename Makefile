@@ -1,10 +1,11 @@
-DOCKER=podman
-DOCKER_OPT=--network=host
+DOCKER?=docker
+DOCKER_OPT?=
+#--network=host
 IMG=test
 CMD=bash
-USER=kkholst
+USERd=kkholst
 REPO=stat
-TAG=$(IMG)
+TAG?=$(IMG)
 PWD:=`pwd`
 CONTAINER_EXISTS:=$(shell $(DOCKER) ps | awk '{print $$NF}' | grep -w run_$(IMG))
 
@@ -71,4 +72,4 @@ dlogin:
 .PHONY: dpush
 dpush:
 	$(DOCKER) build --rm $(DOCKER_OPT) -t $(USER)/$(REPO):$(TAG) . -f Dockerfile.$(IMG)
-	$(DOCKER) push localhost/$(USER)/$(REPO):$(TAG) $(USER)/$(REPO):$(TAG)
+	$(DOCKER) push $(USER)/$(REPO):$(TAG)

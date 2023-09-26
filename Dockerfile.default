@@ -4,12 +4,16 @@ FROM kkholst/stat:base
 
 MAINTAINER "Klaus Kähler Holst" klaus@holst.it
 
-RUN 	R -q -e "install.packages(c('RcppEnsmallen'), repos='https://cloud.r-project.org/')" &&  \
+RUN 	R -q -e "install.packages(c('IRkernel', 'RcppEnsmallen'), repos='https://cloud.r-project.org/')" &&  \
 	rm -Rf /tmp/* /root/.cache
 
-RUN 	pip3 install scipy numpy scikit-build pandas ninja cmake && \
+RUN 	pip3 install scipy numpy scikit-build pandas ninja cmake jupyterlab && \
 	rm -Rf /tmp/* /root/.cache
+
+RUN R -q -e "IRkernel::installspec(user = FALSE)"
 
 RUN	install_packages ccache
 
-CMD bash
+EXPOSE 8080
+
+CMD	jupyter-lab --allow-root --port 8080 --ip 0.0.0.0 --no-browser
